@@ -1,31 +1,103 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "WebMP3 Library";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<style>
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        text-align: left;
+        border-collapse: separate;
+        border-spacing: 5px;
+        background: #ECE9E0;
+        color: #656665;
+        border: 16px solid #ECE9E0;
+        border-radius: 20px;
+        max-width: 100%;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    th {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    td {
+        background: #F5D7BF;
+        padding: 10px;
+    }
+
+    hr {
+        border: none; /* Убираем границу */
+        background-color: cornflowerblue; /* Цвет линии */
+        color: cornflowerblue; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+    }
+
+    img {
+        border-radius: 20px;
+        width: 300px;
+    }
+
+    audio {
+        width: 100%;
+    }
+</style>
+
+
+@using WebMP3.temp;
+@using WebMP3.FilesWorkers;
+@{
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var Paths = FileHelper.GetPaths(@"D:\Паша\! ! ! Сборки\__ПодборкаВМашину\DubStep");
+    List<MP3File> listMP3Files = new List<MP3File>();
+    foreach (var path in Paths)
+    {
+        listMP3Files.Add(new MP3File { Path = path, Mp3Info = new MP3Info(path), Content = FileHelper.GetFile(path) });
+    }
+
+
+    foreach (var file in listMP3Files)
+    {
+        <div class="col-md-12">
+            <table>
+                <caption>@file.Path</caption>
+                <tr>
+                    <th>Artists</th>
+                    <th>Title</th>
+                    <th>Bitrate</th>
+                    <th>Genres</th>
+                    <th>Year</th>
+                    <th>Bpm</th>
+                    <th>Duration</th>
+                    <th>Album</th>
+                </tr>
+                <tr>
+                    <td>@file.Mp3Info.Performers</td>
+                    <td>@file.Mp3Info.Title</td>
+                    <td>@file.Mp3Info.AudioBitrate</td>
+                    <td>@file.Mp3Info.Genres</td>
+                    <td>@file.Mp3Info.Year</td>
+                    <td>@file.Mp3Info.Bpm</td>
+                    <td>@file.Mp3Info.Duration</td>
+                    <td>@file.Mp3Info.Album</td>
+                </tr>
+            </table>
+
+
+            @{
+                System.Drawing.Image ImageMP3 = file.Mp3Info.Image != null ? file.Mp3Info.Image : null;
+                if (ImageMP3 != null)
+                {
+                    var imgSrc = FileHelper.GetStringFromImage(ImageMP3);
+                    <img src='@imgSrc' alt="Картинка трека">
+                }
+                else
+                {
+                    <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
+                }
+            }
+            <br>
+            <audio src='@Url.Action("GetAudioFile", new { file = file.Path })' controls="controls" preload="auto"></audio>
+            <hr>
+        </div>
+    }
+}
