@@ -51,7 +51,7 @@
     List<MP3File> listMP3Files = new List<MP3File>();
     foreach (var path in Paths)
     {
-        listMP3Files.Add(new MP3File { Path = path, Mp3Info = new MP3Info(path), Content = FileHelper.GetFile(path) });
+        listMP3Files.Add(new MP3File { Path = path, Mp3Info = new MP3Info(path)});
     }
 
 

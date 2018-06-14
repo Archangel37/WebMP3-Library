@@ -49,7 +49,7 @@ namespace WebMP3.Controllers
 
             for(int i=0; i<paths.Count(); i++)
             {
-                MP3s.Add(new MP3File { Path = paths[i], Content = contents[i] });
+                MP3s.Add(new MP3File { Path = paths[i], Mp3Info = new FilesWorkers.MP3Info(paths[i]) });
             }
 
 

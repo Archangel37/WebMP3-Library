@@ -5,7 +5,6 @@ namespace WebMP3.temp
     public class MP3File
     {
         public string Path { get; set; }
-        public byte[] Content { get; set; }
         public MP3Info Mp3Info { get; set; }
 
         public void SaveInfo(MP3Info info)
