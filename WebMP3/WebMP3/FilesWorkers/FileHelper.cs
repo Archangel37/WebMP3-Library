@@ -33,8 +33,8 @@ namespace WebMP3.temp
 
         private static byte[] CopyImageToByteArray(System.Drawing.Image theImage)
         {
-            Image image = theImage;
-            System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
+            MemoryStream memoryStream = new MemoryStream();
+            Image image = new Bitmap(theImage);
             image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
             return memoryStream.ToArray();
         }
