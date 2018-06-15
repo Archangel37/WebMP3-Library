@@ -15,6 +15,10 @@
         max-width: 100%;
         width: 100%;
     }
+    /*!!!!!!!!!!!!!!*/
+    /*div {
+        border-bottom: 1px solid aqua;
+    }*/
 
     th {
         font-size: 18px;
@@ -35,15 +39,29 @@
     }
 
     img {
-        border-radius: 20px;
+        border-radius: 0 20px 0 20px;
         border: 2px solid #00FFFF;
         width: 300px;
+        float: left;
+        /*padding-bottom: 50px;*/
+    }
+
+    #square {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px 0 20px 0;
+        border: 2px solid aqua;
+        /*background: red;*/
     }
 
     audio {
         width: 100%;
         border: 2px solid #00FFFF;
     }
+    caption {
+        padding-top: 50px;
+    }
+
 </style>
 
 
@@ -67,46 +85,50 @@
 
     foreach (var file in listMP3Files)
     {
-        <div class="col-md-12">
-            <table>
-                <caption>@file.Path</caption>
-                <tr>
-                    <th>Artists</th>
-                    <th>Title</th>
-                    <th>Bitrate</th>
-                    <th>Genres</th>
-                    <th>Year</th>
-                    <th>Bpm</th>
-                    <th>Duration</th>
-                    <th>Album</th>
-                </tr>
-                <tr>
-                    <td>@file.Mp3Info.Performers</td>
-                    <td>@file.Mp3Info.Title</td>
-                    <td>@file.Mp3Info.AudioBitrate</td>
-                    <td>@file.Mp3Info.Genres</td>
-                    <td>@file.Mp3Info.Year</td>
-                    <td>@file.Mp3Info.Bpm</td>
-                    <td>@file.Mp3Info.Duration</td>
-                    <td>@file.Mp3Info.Album</td>
-                </tr>
-            </table>
-            <audio src='@Url.Action("GetAudioFile", new { file = file.Path })' controls="controls" preload="auto"></audio>
+<div class="col-md-12">
+    <table>
+        <caption>@file.Path</caption>
+        <tr>
+            <th>Artists</th>
+            <th>Title</th>
+            <th>Bitrate</th>
+            <th>Genres</th>
+            <th>Year</th>
+            <th>Bpm</th>
+            <th>Duration</th>
+            <th>Album</th>
+        </tr>
+        <tr>
+            <td>@file.Mp3Info.Performers</td>
+            <td>@file.Mp3Info.Title</td>
+            <td>@file.Mp3Info.AudioBitrate</td>
+            <td>@file.Mp3Info.Genres</td>
+            <td>@file.Mp3Info.Year</td>
+            <td>@file.Mp3Info.Bpm</td>
+            <td>@file.Mp3Info.Duration</td>
+            <td>@file.Mp3Info.Album</td>
+        </tr>
+    </table>
+    <audio src='@Url.Action("GetAudioFile", new { file = file.Path })' controls="controls" preload="auto"></audio>
 
-            @{
-                System.Drawing.Image ImageMP3 = file.Mp3Info.Image != null ? file.Mp3Info.Image : null;
-                if (ImageMP3 != null)
-                {
-                    var imgSrc = FileHelper.GetStringFromImage(ImageMP3);
-                    <img src='@imgSrc' alt="Картинка трека">
-                }
-                else
-                {
-                    <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
-                }
-            }
-
-            <hr>
-        </div>
+    @{
+        System.Drawing.Image ImageMP3 = file.Mp3Info.Image != null ? file.Mp3Info.Image : null;
+        if (ImageMP3 != null)
+        {
+            var imgSrc = FileHelper.GetStringFromImage(ImageMP3);      
+                <img src='@imgSrc' alt="Картинка трека">
+            
+            <div><hr><hr></div>
         }
+        else
+        {
+            <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
+            <div class="#square"><hr><hr></div>
         }
+    }
+    <hr>
+</div>
+            <br>
+            <br>
+        }
+    }

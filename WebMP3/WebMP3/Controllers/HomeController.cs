@@ -13,7 +13,7 @@ namespace WebMP3.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Описание решения WebMP3-Library";
 
             return View();
         }
