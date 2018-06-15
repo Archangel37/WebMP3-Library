@@ -25,13 +25,13 @@ namespace WebMP3.temp
             return Directory.GetFiles(dir, "*.mp3");
         }
 
-        public static string GetStringFromImage(System.Drawing.Image image)
+        public static string GetStringFromImage(Image image)
         {
             byte[] xByte = CopyImageToByteArray(image);
             return String.Format("data:image;base64,{0}", Convert.ToBase64String(xByte));
         }
 
-        private static byte[] CopyImageToByteArray(System.Drawing.Image theImage)
+        private static byte[] CopyImageToByteArray(Image theImage)
         {
             MemoryStream memoryStream = new MemoryStream();
             Image image = new Bitmap(theImage);
