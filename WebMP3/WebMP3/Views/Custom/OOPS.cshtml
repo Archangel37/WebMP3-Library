@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "OOPS";
+}
+
+<style>
+    hr {
+        border: none; /* Убираем границу */
+        background-color: aqua; /* Цвет линии */
+        color: aqua; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+    }
+
+    img {
+        border-radius: 20px;
+        border: 2px solid #00FFFF;
+        width: 300px;
+    }
+    p {
+        align-content: flex-start;
+        align-items: stretch;
+        text-align: justify;
+    }
+    .center-img {
+        display: block;
+        margin: 0 auto;
+    }
+
+</style>
+
+
+<h2>OOPS...</h2>
+<p>
+    <a href="~/Home/Start">
+        <img src="~/Images/oops.jpg" alt="Something went wrong...">
+    </a>
+</p>
+
+<p>Что-то пошло не так. Вероятнее всего, что в указанной папке не нашлось *.mp3-файлов</p>
+<p>Или же вы преднамеренно оставили пустым путь.. </p>
+<p>В любом случае, попробуйте указать другой путь...</p> 
+<p>Чтобы начать сначала, кликните по картинке ошибки (или иным способом вернитесь на домашнюю страницу)</p>
+<p>Для перехода на страницу обращения в техподдержку - по картинке ниже.</p>
+
+<p>
+    <a href="~/Home/Contact">
+        <img src="~/Images/commercial.jpg" alt="Just a joke..." class="center-img">
+    </a>
+</p>

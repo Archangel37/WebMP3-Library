@@ -1,13 +1,17 @@
-﻿@model WebMP3.Models.SubmitFolder
+﻿@{
+    ViewBag.Title = "WebMP3 Library";
+}
+
+@model WebMP3.Models.SubmitFolder
 
 @using (Html.BeginForm("Start", "Home", FormMethod.Post))
 {
     <div class="col-md-12">
-    @Html.TextBoxFor(model => model.Dirrectory, "Dirrectory", new { style = "width: 80%;" })
+        @Html.TextBoxFor(model => model.Dirrectory, "Dirrectory", new { style = "width: 80%;" })
         <br>
-    @Html.CheckBoxFor(model => model.SubDir, "Use Sub-folders")
+        <label>@Html.CheckBoxFor(model => model.SubDir, "Use Sub-folders")Use Sub-folders</label>
         <br>
-    @Html.ValidationMessageFor(model => model.Dirrectory)
-    <button type="submit">Show</button>
+        @Html.ValidationMessageFor(model => model.Dirrectory)
+        <button type="submit">Show</button>
     </div>
-    }
+}

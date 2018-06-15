@@ -6,6 +6,7 @@ namespace WebMP3.Models
     {
         [Required]
         public string Dirrectory { get; set; }
+        [Required]
         public bool SubDir { get; set; }
     }
 }

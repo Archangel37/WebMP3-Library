@@ -50,12 +50,18 @@
 @using WebMP3.temp;
 @using WebMP3.FilesWorkers;
 @{
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var Paths = FileHelper.GetPaths(Model.Dirrectory);//, Model.SubDir);
+    var Paths = FileHelper.GetPaths(Model.Dirrectory, Model.SubDir);
+
+
     List<MP3File> listMP3Files = new List<MP3File>();
     foreach (var path in Paths)
     {
         listMP3Files.Add(new MP3File { Path = path, Mp3Info = new MP3Info(path) });
+    }
+    //протестить Paths.Count и раньше перенаправлять
+    if (listMP3Files.Count == 0)
+    {
+        Response.Redirect("~/Custom/OOPS");
     }
 
 
@@ -102,5 +108,5 @@
 
             <hr>
         </div>
-    }
-}
+        }
+        }

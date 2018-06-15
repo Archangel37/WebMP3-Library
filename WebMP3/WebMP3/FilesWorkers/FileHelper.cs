@@ -20,9 +20,10 @@ namespace WebMP3.temp
         }
 
 
-        public static IEnumerable<string> GetPaths(string dir)
+        public static IEnumerable<string> GetPaths(string dir, bool subdirs)
         {
-            return Directory.GetFiles(dir, "*.mp3");
+            if (string.IsNullOrWhiteSpace(dir)) return new string[0];
+            return Directory.GetFiles(dir, "*.mp3", subdirs ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
         }
 
         public static string GetStringFromImage(Image image)
