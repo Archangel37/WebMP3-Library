@@ -38,7 +38,7 @@ namespace WebMP3.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO: SubscribeUser(model.Email);
+                //TODO: (Model.Dirrectory, Model.SubDir);
             }
 
             return View("Index", model);

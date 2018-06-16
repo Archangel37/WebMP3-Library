@@ -2,6 +2,7 @@
     ViewBag.Title = "WebMP3 Library";
 }
 @model WebMP3.Models.SubmitFolder
+
 <style>
     table {
         font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -15,11 +16,6 @@
         max-width: 100%;
         width: 100%;
     }
-    /*!!!!!!!!!!!!!!*/
-    /*div {
-        border-bottom: 1px solid aqua;
-    }*/
-
     th {
         font-size: 18px;
         padding: 10px;
@@ -58,10 +54,10 @@
         width: 100%;
         border: 2px solid #00FFFF;
     }
+
     caption {
         padding-top: 50px;
     }
-
 </style>
 
 
@@ -115,20 +111,26 @@
         System.Drawing.Image ImageMP3 = file.Mp3Info.Image != null ? file.Mp3Info.Image : null;
         if (ImageMP3 != null)
         {
-            var imgSrc = FileHelper.GetStringFromImage(ImageMP3);      
+            var imgSrc = FileHelper.GetStringFromImage(ImageMP3);
+            <a href="@LinkCreator.CreateLinkToVideoSearch(file.Mp3Info.Performers, file.Mp3Info.Title)"  target="_blank">
                 <img src='@imgSrc' alt="Картинка трека">
-            
+            </a>
+
+
             <div><hr><hr></div>
         }
         else
         {
-            <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
+            <a href="@LinkCreator.CreateLinkToVideoSearch(file.Mp3Info.Performers, file.Mp3Info.Title)"  target="_blank">
+                <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
+            </a>
+           
             <div class="#square"><hr><hr></div>
         }
     }
     <hr>
 </div>
-            <br>
-            <br>
-        }
+        <br>
+        <br>
     }
+}
