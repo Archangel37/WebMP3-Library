@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "WebMP3 Library";
+}
+@model WebMP3.Models.SubmitFolder
+
+<style>
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        text-align: left;
+        border-collapse: separate;
+        border-spacing: 2px;
+        background: #ECE9E0;
+        color: #656665;
+        border: 2px solid #00FFFF;
+        border-radius: 5px 5px 0 0;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    th {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    td {
+        background: #F5D7BF;
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    hr {
+        border: none; /* Убираем границу */
+        background-color: aqua; /* Цвет линии */
+        color: aqua; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+    }
+
+    img {
+        border-radius: 0 5px 0 5px;
+        border: 2px solid #00FFFF;
+        width: 90px;
+        max-height: 100%;
+        max-width: 100%;
+        height:80%;
+        float: left;
+    }
+
+    audio {
+        width: 100%;
+        border: 2px solid #00FFFF;
+    }
+
+    caption {
+        padding-top: 50px;
+    }
+</style>
+
+
+@using WebMP3.temp;
+@using WebMP3.FilesWorkers;
+@{
+    var Paths = FileHelper.GetPaths(Model.Dirrectory, Model.SubDir);
+
+
+    List<MP3File> listMP3Files = new List<MP3File>();
+    foreach (var path in Paths)
+    {
+        listMP3Files.Add(new MP3File { Path = path, Mp3Info = new MP3Info(path) });
+    }
+    //протестить Paths.Count и раньше перенаправлять
+    if (listMP3Files.Count == 0)
+    {
+        Response.Redirect("~/Custom/OOPS");
+    }
+
+
+    foreach (var file in listMP3Files)
+    {
+<div class="row">
+    <div class="col-md-10">
+        <table>
+
+            <tr>
+                <th>Artists</th>
+                <th>Title</th>
+                <th>Bitrate</th>
+                <th>Genres</th>
+                <th>Year</th>
+                <th>Bpm</th>
+                <th>Duration</th>
+                <th>Album</th>
+                <th>Image</th>
+            </tr>
+            <tr>
+                <td>@file.Mp3Info.Performers</td>
+                <td>@file.Mp3Info.Title</td>
+                <td>@file.Mp3Info.AudioBitrate</td>
+                <td>@file.Mp3Info.Genres</td>
+                <td>@file.Mp3Info.Year</td>
+                <td>@file.Mp3Info.Bpm</td>
+                <td>@file.Mp3Info.Duration</td>
+                <td>@file.Mp3Info.Album</td>
+                <td></td>
+            </tr>
+            @*<caption>@file.Path</caption>*@
+        </table>
+        <audio src='@Url.Action("GetAudioFile", new { file = file.Path })' controls="controls" preload="auto"></audio>
+    </div>
+
+
+    <div class="col-md-2">
+        @{
+            System.Drawing.Image ImageMP3 = file.Mp3Info.Image != null ? file.Mp3Info.Image : null;
+            if (ImageMP3 != null)
+            {
+                var imgSrc = FileHelper.GetStringFromImage(ImageMP3);
+                <a href="@LinkCreator.CreateLinkToVideoSearch(file.Mp3Info.Performers, file.Mp3Info.Title)" target="_blank">
+                    <img src='@imgSrc' alt="Картинка трека">
+                </a>
+            }
+            else
+            {
+                <a href="@LinkCreator.CreateLinkToVideoSearch(file.Mp3Info.Performers, file.Mp3Info.Title)" target="_blank">
+                    <img src="~/Images/no-image-available.jpg" alt="Нет изображения для трека">
+                </a>
+            }
+        }
+    </div>
+</div>
+            @*<br>*@
+            }
+            }
